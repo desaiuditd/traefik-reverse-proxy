@@ -1,0 +1,36 @@
+api:
+  # Enable dashboard.
+  dashboard: true
+  # Enable debug logs in container.
+  debug: true
+log:
+  # Log and show everything.
+  level: INFO
+providers:
+  # Run traefik with docker.
+  docker:
+    exposedByDefault: false
+    watch: true
+    # This is the default docker network from docker-compose.yaml file.
+    # It's derived from container_name.
+    network: traefik-reverse-proxy_default
+entryPoints:
+  web:
+    # Listen on http
+    address: :80
+    # Redirect http to https
+    http:
+      redirections:
+        entryPoint:
+          to: web-secure
+          scheme: https
+  web-secure:
+    # Listen on https
+    address: :443
+certificatesResolvers:
+  lets-encrypt-resolver:
+    acme:
+      storage: /usr/src/acme.json
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web
