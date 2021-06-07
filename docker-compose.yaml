@@ -25,3 +25,4 @@ services:
       - ./acme.json:/usr/src/acme.json
       # Traefik static config file.
       - ./traefik.static.yaml:/etc/traefik/traefik.yaml:ro
+    restart: unless-stopped
