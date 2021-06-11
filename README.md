@@ -11,11 +11,6 @@ sudo apt install apache2-utils # Linux
 htpasswd -cb .htpasswd admin <your-password>
 ```
 
-## .env
-
-Copy `.env.example` to `.env` in the same directory.
-Change necessary values in `.env` file.
-
 ## Let's Encrypt
 
 ```bash
@@ -25,6 +20,16 @@ chmod 600 acme.json
 
 ## Change domain name for the Traefik Dashboard
 
+In `docker-compose.yaml` file.
+
 ```
 traefik.http.routers.traefik.rule=Host(`proxy.example.com`)
+```
+
+## Change email for Let's Encrypt SSL renewal.
+
+In `traefik.static.yaml` file.
+
+```
+certificatesResolvers.lets-encrypt-resolver.acme.email: john.doe@example.com
 ```

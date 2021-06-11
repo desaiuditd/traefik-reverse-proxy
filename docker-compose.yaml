@@ -5,6 +5,7 @@ services:
     env_file: .env
     labels:
       - traefik.enable=true
+      # TODO: Change this domain.
       - traefik.http.routers.traefik.rule=Host(`proxy.example.com`)
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.entrypoints=web-secure

@@ -30,6 +30,8 @@ entryPoints:
 certificatesResolvers:
   lets-encrypt-resolver:
     acme:
+      # TODO: Change this email.
+      email: john.doe@example.com
       storage: /usr/src/acme.json
       httpChallenge:
         # used during the challenge
