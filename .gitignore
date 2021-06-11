@@ -3,5 +3,3 @@
 .htpasswd
 
 acme.json
-
-.env
