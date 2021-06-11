@@ -24,6 +24,7 @@ In `docker-compose.yaml` file.
 
 ```
 traefik.http.routers.traefik.rule=Host(`proxy.example.com`)
+traefik.http.routers.traefik.tls.domains[0].main=proxy.example.com
 ```
 
 ## Change email for Let's Encrypt SSL renewal.
