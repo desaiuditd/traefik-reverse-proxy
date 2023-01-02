@@ -1,10 +1,8 @@
 tls:
   certificates:
-    # Traefik Proxy Dashboard.
-    - certFile: /usr/src/certs/proxy.lvh.me/cert.pem
-      keyFile: /usr/src/certs/proxy.lvh.me/key.pem
-    # Add certs for other services as needed.
-    # - certFile: /usr/src/certs/fin.lvh.me/cert.pem
-    #   keyFile: /usr/src/certs/fin.lvh.me/key.pem
-    # - certFile: /usr/src/certs/fin-db.lvh.me/cert.pem
-    #   keyFile: /usr/src/certs/fin-db.lvh.me/key.pem
+    # Common cert for *.lvh.me domain.
+    - certFile: /usr/src/certs/_.lvh.me/cert.pem
+      keyFile: /usr/src/certs/_.lvh.me/key.pem
+    # Add certs for other domains/services as needed.
+    # - certFile: /usr/src/certs/fin.fuf.me/cert.pem
+    #   keyFile: /usr/src/certs/fin.fuf.me/key.pem

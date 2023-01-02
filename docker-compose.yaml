@@ -1,6 +1,7 @@
 services:
   reverse-proxy:
     container_name: traefik-reverse-proxy
+    restart: unless-stopped
     image: traefik:2.9
     labels:
       - traefik.enable=true
@@ -15,6 +16,33 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Traefik static config file.
-      - ./traefik.static.yaml:/etc/traefik/traefik.yaml:ro
-    restart: unless-stopped
+    environment:
+      - TRAEFIK_API=true
+      # Enable dashboard.
+      - TRAEFIK_API_DASHBOARD=true
+      # Enable debug logs in container.
+      - TRAEFIK_API_DEBUG=true
+
+      - TRAEFIK_LOG=true
+      # Log and show everything.
+      - TRAEFIK_LOG_LEVEL=INFO
+
+      # Run traefik with docker.
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
+      - TRAEFIK_PROVIDERS_DOCKER_WATCH=true
+      # This is the default docker network from docker-compose.yaml file.
+      # It's derived from container_name.
+      # This network should be added as external network in other docker-compose.yaml files for other services.
+      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=traefik-reverse-proxy_default
+
+      - TRAEFIK_ENTRYPOINTS_web=true
+      # Listen on http
+      - TRAEFIK_ENTRYPOINTS_web_ADDRESS=:80
+      # Redirect http to https
+      - TRAEFIK_ENTRYPOINTS_web_HTTP_REDIRECTIONS_ENTRYPOINT_TO=web-secure
+      - TRAEFIK_ENTRYPOINTS_web_HTTP_REDIRECTIONS_ENTRYPOINT_SCHEME=https
+
+      - TRAEFIK_ENTRYPOINTS_web-secure=true
+      # Listen on https
+      - TRAEFIK_ENTRYPOINTS_web-secure_ADDRESS=:443

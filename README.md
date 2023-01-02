@@ -7,10 +7,10 @@
 1. Install [minica](https://github.com/jsha/minica)
    1. `brew install minica`
 2. `cd certs`
-3. `minica --domains 'proxy.lvh.me'`
-4. `sudo security add-trusted-cert -d -r trustAsRoot -p ssl -k /Library/Keychains/System.keychain proxy.lvh.me/cert.pem`
+3. `minica --domains '*.lvh.me'`
+4. `sudo security add-trusted-cert -d -r trustAsRoot -p ssl -k /Library/Keychains/System.keychain _.lvh.me/cert.pem`
 
-You can run steps 3. & 4. for as many other sub-domains as you need for any other services.
+You can run steps 3. & 4. for as many other domains as you need for any other services.
 
 ## Production
 
