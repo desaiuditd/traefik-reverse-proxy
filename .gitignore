@@ -3,3 +3,6 @@
 .htpasswd
 
 acme.json
+
+certs/*.pem
+certs/**/*.pem

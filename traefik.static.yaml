@@ -13,6 +13,7 @@ providers:
     watch: true
     # This is the default docker network from docker-compose.yaml file.
     # It's derived from container_name.
+    # This network should be added as external network in other docker-compose.yaml files for other services.
     network: traefik-reverse-proxy_default
 entryPoints:
   web:
@@ -27,12 +28,3 @@ entryPoints:
   web-secure:
     # Listen on https
     address: :443
-certificatesResolvers:
-  lets-encrypt-resolver:
-    acme:
-      # TODO: Change this email.
-      email: john.doe@example.com
-      storage: /usr/src/acme.json
-      httpChallenge:
-        # used during the challenge
-        entryPoint: web

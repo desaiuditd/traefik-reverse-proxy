@@ -1,0 +1,14 @@
+services:
+  reverse-proxy:
+    container_name: traefik-reverse-proxy
+    image: traefik:2.9
+    labels:
+      - traefik.http.routers.rev-proxy.rule=Host(`proxy.lvh.me`)
+    volumes:
+      # Traefik dynamic config file.
+      - ./traefik.dynamic.yaml:/usr/src/traefik.yaml:ro
+      # SSL certs
+      - ./certs:/usr/src/certs:ro
+    environment:
+      - TRAEFIK_PROVIDERS_FILE_FILENAME=/usr/src/traefik.yaml
+      - TRAEFIK_PROVIDERS_FILE_WATCH=true

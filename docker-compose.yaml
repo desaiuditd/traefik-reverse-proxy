@@ -1,17 +1,12 @@
 services:
   reverse-proxy:
     container_name: traefik-reverse-proxy
-    image: traefik:v2.4
+    image: traefik:2.9
     labels:
       - traefik.enable=true
-      # TODO: Change this domain.
-      - traefik.http.routers.traefik.rule=Host(`proxy.example.com`)
-      - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.routers.traefik.entrypoints=web-secure
-      - traefik.http.routers.traefik.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=lets-encrypt-resolver
-      - traefik.http.routers.traefik.middlewares=traefik-auth
-      - traefik.http.middlewares.traefik-auth.basicauth.usersfile=/usr/src/.htpasswd
+      - traefik.http.routers.rev-proxy.service=api@internal
+      - traefik.http.routers.rev-proxy.entrypoints=web-secure
+      - traefik.http.routers.rev-proxy.tls=true
     ports:
       # http
       - 80:80
@@ -20,10 +15,6 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Basic Auth
-      - ./.htpasswd:/usr/src/.htpasswd:ro
-      # Let's Encrypt
-      - ./acme.json:/usr/src/acme.json
       # Traefik static config file.
       - ./traefik.static.yaml:/etc/traefik/traefik.yaml:ro
     restart: unless-stopped
