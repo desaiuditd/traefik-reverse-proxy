@@ -2,7 +2,7 @@ services:
   reverse-proxy:
     container_name: traefik-reverse-proxy
     restart: unless-stopped
-    image: traefik:2.9
+    image: traefik:2.10
     labels:
       - traefik.enable=true
       - traefik.http.routers.rev-proxy.service=api@internal
