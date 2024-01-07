@@ -1,7 +1,5 @@
 services:
   reverse-proxy:
-    container_name: traefik-reverse-proxy
-    image: traefik:2.10
     labels:
       - traefik.http.routers.rev-proxy.rule=Host(`proxy.lvh.me`)
     volumes:
