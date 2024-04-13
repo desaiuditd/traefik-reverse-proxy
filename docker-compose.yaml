@@ -1,6 +1,5 @@
 services:
   reverse-proxy:
-    container_name: traefik-reverse-proxy
     restart: unless-stopped
     image: traefik:2.11
     labels:
@@ -25,16 +24,16 @@ services:
 
       - TRAEFIK_LOG=true
       # Log and show everything.
-      - TRAEFIK_LOG_LEVEL=INFO
+      - TRAEFIK_LOG_LEVEL=DEBUG
 
       # Run traefik with docker.
       - TRAEFIK_PROVIDERS_DOCKER=true
       - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
       - TRAEFIK_PROVIDERS_DOCKER_WATCH=true
-      # This is the default docker network from docker-compose.yaml file.
-      # It's derived from container_name.
-      # This network should be added as external network in other docker-compose.yaml files for other services.
-      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=traefik-reverse-proxy_default
+
+      # Enable Redis provider.
+      - TRAEFIK_PROVIDERS_REDIS=true
+      - TRAEFIK_PROVIDERS_REDIS_ENDPOINTS=dragonfly:6379
 
       - TRAEFIK_ENTRYPOINTS_web=true
       # Listen on http
@@ -46,3 +45,12 @@ services:
       - TRAEFIK_ENTRYPOINTS_web-secure=true
       # Listen on https
       - TRAEFIK_ENTRYPOINTS_web-secure_ADDRESS=:443
+
+  dragonfly:
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+    ulimits:
+      memlock: -1
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./dragonfly:/data

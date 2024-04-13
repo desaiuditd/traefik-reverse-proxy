@@ -2,7 +2,15 @@
 
 .htpasswd
 
-acme.json
-
 certs/*.pem
 certs/**/*.pem
+
+
+dragonfly/**
+!dragonfly/.gitkeep
+
+letsencrypt/**
+!letsencrypt/.gitkeep
+
+secrets/**
+!secrets/.gitkeep

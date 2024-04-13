@@ -25,13 +25,6 @@ sudo apt install apache2-utils # Linux
 htpasswd -cb .htpasswd admin <your-password>
 ```
 
-### Let's Encrypt
-
-```bash
-touch acme.json
-chmod 600 acme.json
-```
-
 ### Change domain name for the Traefik Dashboard
 
 In `docker-compose.production.yaml` file.
@@ -47,3 +40,12 @@ In `docker-compose.production.yaml` file.
 ```
 TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPTRESOLVER_ACME_EMAIL=john.doe@example.com
 ```
+
+### GoDaddy API Secrets
+
+Generate new api key and secret for GoDaddy API from - https://developer.godaddy.com/keys
+
+and save them in below files.
+
+- ./secrets/godaddy_api_key
+- ./secrets/godaddy_api_secret
