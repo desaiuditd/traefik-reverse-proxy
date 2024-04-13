@@ -15,6 +15,7 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik-conf:/traefik-conf
     environment:
       - TRAEFIK_API=true
       # Enable dashboard.
@@ -34,6 +35,9 @@ services:
       # Enable Redis provider.
       - TRAEFIK_PROVIDERS_REDIS=true
       - TRAEFIK_PROVIDERS_REDIS_ENDPOINTS=dragonfly:6379
+
+      # Enable File Directory Provider.
+      - TRAEFIK_PROVIDERS_FILE_DIRECTORY=/traefik-conf
 
       - TRAEFIK_ENTRYPOINTS_web=true
       # Listen on http
