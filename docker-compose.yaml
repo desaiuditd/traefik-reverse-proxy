@@ -39,9 +39,6 @@ services:
       # Enable File Directory Provider.
       - TRAEFIK_PROVIDERS_FILE_DIRECTORY=/traefik-conf
 
-      - TRAEFIK_ENTRYPOINTS_proxmox-web=true
-      - TRAEFIK_ENTRYPOINTS_proxmox-web_ADDRESS=:8006
-
       - TRAEFIK_ENTRYPOINTS_web=true
       # Listen on http
       - TRAEFIK_ENTRYPOINTS_web_ADDRESS=:80
